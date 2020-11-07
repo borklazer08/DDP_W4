@@ -1,0 +1,46 @@
+---
+title: "Final_assignment_DD4"
+author: "Kartikeya Pandey"
+date: "7/11/2020"
+output: html_document
+  html_document:
+    number_sections: yes
+    toc: yes
+  ioslides_presentation: default
+mode: selfcontained
+job: Reproducible Pitch Presentation
+subtitle: Variables and MPG
+highlighter: highlight.js
+widgets: bootstrap
+---
+## we use inbuild mtcars database in r. this is done to get this done as quicklt as possible
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## loading the inbuilt data 
+
+```{r cars}
+library(datasets)
+tail(mtcars, 12)
+```
+
+
+```{r }
+
+
+  very_important_object <- reactive({
+    paste("mpg ~", "as.integer(", input$variable, ")")  })
+  
+  some_object_important_to_an_extent <- reactive({
+    lm(as.formula(very_important_object()), data=mpgData)  })
+  ...
+  output$some_object_important_to_an_extent <- renderPrint({
+    summary(some_object_important_to_an_extent()) })
+  
+  output$mpgPlot <- renderPlot({
+    with(mpgData, {
+      plot(as.formula(very_important_object()))
+      abline(some_object_important_to_an_extent(), col=2)
+    })  })
+```
+
